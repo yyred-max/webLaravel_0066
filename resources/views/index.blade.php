@@ -85,7 +85,7 @@
 
                         <div class="news-body">
                             <span class="news-time">2 Jam Lalu</span>
-                            <h3>Gara-garaTrump: Bisnis Nvidia Turun di China, Chip Huawai dan Alibaba Siap Berkembang</h3>
+                            <h3>Gara-gara Trump: Bisnis Nvidia Turun di China, Chip Huawai dan Alibaba Siap Berkembang</h3>
                             <p>Bisnis Nvidia di China terus menghadapi hambatan geopolitik. Para analis barat menilai hal ini dapat memicu risiko persaingan jangka panjang bagi produsen chip bagi produk kecerdasan buatan.</p>
                             <a href="https://informasi.com/teknologi/infrms-26065/gara-gara-trump-bisnis-nvidia-turun-di-china-chip-huawei-dan-alibaba-siap-berkembang" class="read-more">Read More <i class="bi bi-arrow-right"></i></a>
                         </div>
@@ -204,5 +204,52 @@
     </div>
 
 </section>
+
+<!-- Footer -->
+<footer class="footer-news">
+    <div class="container">
+        <div class="row g-4">
+            <div class="col-lg-4">
+                <h4>Kabar Burung</h4>
+                <p>Jurnalisme independen, kredibel, dan mendalam untuk masa depan Indonesia yang lebih baik.</p>
+                <div class="footer-social">
+                <i class="bi bi-camera"></i>
+                    <i class="bi bi-share"></i>
+                    <i class="bi bi-envelope"></i>
+                </div>
+            </div>
+
+            <div class="col-lg-2 col-6">
+                <h5>Navigasi</h5>
+                <ul>
+                    <li><a href="#">Tentang Kami</a></li>
+                    <li><a href="#">Redaksi</a></li>
+                    <li><a href="#">Karir</a></li>
+                </ul>
+            </div>
+
+            <div class="col-lg-2 col-6">
+                <h5>Legal</h5>
+                <ul>
+                    <li><a href="#">Pedoman Media Siber</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Kontak</a></li>
+                </ul>
+            </div>
+
+            <div class="col-lg-2 col-6">
+                <h5>Edisi Cetak</h5>
+                <ul>
+                    <li><a href="#">Langganan Koran</a></li>
+                    <li><a href="#">Info Iklan</a></li>
+                    <li><a href="#">E-Paper</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <hr>
+        <p class="footer-copy">&copy; 2026 Kabar Burung. Jurnalisme Terpercaya untuk Indonesia.</p>
+    </div>
+</footer>
 
 @endsection

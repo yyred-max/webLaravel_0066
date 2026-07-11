@@ -59,3 +59,80 @@ a {
     color:#2563eb;
 }
 
+/* HERO */
+.hero-section {
+    margin-top: 0px;
+    height: 550px;
+    border-radius: 0px;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: flex-end;
+}
+
+.hero-overlay {
+    width: 100%;
+    padding: 50px;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 0.15) 60%, rgba(0, 0, 0, 0) 100%);
+}
+
+.hero-meta-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 18px;
+}
+
+.badge-utama {
+    background: #2563eb;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .5px;
+    padding: 6px 14px;
+    border-radius: 4px;
+}
+
+.hero-meta {
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 14px;
+}
+
+.hero-title {
+    color: #fff;
+    font-size: 42px;
+    font-weight: 800;
+    line-height: 1.2;
+    max-width: 750px;
+    margin-bottom: 18px;
+}
+
+.hero-desc {
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 16px;
+    max-width: 650px;
+    line-height: 1.6;
+    margin-bottom: 28px;
+}
+
+.btn-hero {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #fff;
+    color: #2563eb;
+    font-weight: 600;
+    font-size: 15px;
+    padding: 12px 26px;
+    border-radius: 8px;
+    transition: 0.3s;
+}
+
+.btn-hero:hover {
+    background: #2563eb;
+    color: #fff;
+}
+
+

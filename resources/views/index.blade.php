@@ -57,7 +57,9 @@
             </div>
             <h1 class="hero-title">{{ $hero->title }}</h1>
             <p class="hero-desc">{{ $hero->excerpt }}</p>
-            <a href="#" class="btn-hero">Baca Selengkapnya <i class="bi bi-arrow-right"></i></a>
+            @if($hero->source)
+            <a href="{{ $hero->source }}" class="btn-hero" target="_blank">Baca Selengkapnya <i class="bi bi-arrow-right"></i></a>
+            @endif
         </div>
     </div>
 </section>

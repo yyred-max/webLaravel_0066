@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Auth;
 
@@ -10,6 +11,10 @@ Route::get('/', function () {
 });
 
 Route::get('/posts', [PostController::class, 'index']);
+Route::get('/kategori/{category:slug}', [PostController::class, 'byCategory'])->name('category.show');
+
+// Newsletter
+Route::post('/newsletter/subscribe', [NewsletterController::class, 'store'])->name('newsletter.subscribe');
 
 // Halaman register
 Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
@@ -21,7 +26,7 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 // Halaman yang butuh login (protected)
 Route::middleware('auth')->group(function () {
-Route::get('/home', function () {
-return view('home');
-});
+    Route::get('/home', function () {
+        return view('home');
+    });
 });

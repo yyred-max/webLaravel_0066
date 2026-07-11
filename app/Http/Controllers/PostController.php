@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Category;
+use App\Models\Post;
 
 class PostController extends Controller
 {
@@ -11,8 +13,53 @@ class PostController extends Controller
      */
     public function index()
     {
-        return view('index');
+        $hero = Post::published()->with('category')->where('is_featured', true)
+            ->orderByDesc('published_at')->first()
+            ?? Post::published()->with('category')->orderByDesc('published_at')->first();
+
+         // Berita Terbaru: 4 post terbaru selain hero
+         $latestPosts = Post::published()
+            ->with(['category', 'tags'])
+            ->when($hero, fn ($query) => $query->where('id', '!=', $hero->id))
+            ->orderByDesc('published_at')
+            ->take(4)
+            ->get();
+
+        // Paling Populer: urut berdasarkan views terbanyak
+        $popularPosts = Post::published()
+            ->orderByDesc('views')
+            ->take(4)
+            ->get();
+
+        // Kategori Populer: urut berdasarkan jumlah post terbanyak
+        $categories = Category::withCount('posts')
+            ->orderByDesc('posts_count')
+            ->get();
+
+            return view('index', compact('hero', 'latestPosts', 'popularPosts', 'categories'));
+        
     }
+
+    /**
+     * Menampilkan semua berita dalam satu kategori.
+     * Route: /kategori/{category:slug}
+     */
+    public function byCategory(Category $category)
+    {
+        $posts = Post::published()
+            ->with(['category', 'tags'])
+            ->where('category_id', $category->id)
+            ->orderByDesc('published_at')
+            ->paginate(6);
+ 
+        $categories = Category::withCount('posts')
+            ->orderByDesc('posts_count')
+            ->get();
+ 
+        return view('category', compact('category', 'posts', 'categories'));
+    }
+
+
 
     /**
      * Show the form for creating a new resource.

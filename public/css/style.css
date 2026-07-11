@@ -486,4 +486,53 @@ a {
     .hero-desc {
         font-size: 14px;
     }
+
+    .cat-default {
+        background: #f1f3f5;
+        color: #555;
+    }
+
+    a.badge-category {
+        text-decoration: none;
+    }
+
+    .post-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        margin-bottom: 12px;
+    }
+
+    .tag-pill-sm {
+        background: #eef2ff;
+        color: #4c3fd1;
+        font-size: 11px;
+        font-weight: 600;
+        padding: 3px 10px;
+        border-radius: 12px;
+    }
+
+    .news-footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 6px;
+    }
+
+    .source-tag {
+        font-size: 11px;
+        color: #aaa;
+        font-style: italic;
+    }
+
+    a.tag-pill {
+        text-decoration: none;
+        display: inline-block;
+    }
+
+    .tag-pill-active {
+        background: #2563eb !important;
+        color: #fff !important;
+    }
 }

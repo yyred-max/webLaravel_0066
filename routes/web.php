@@ -6,11 +6,12 @@ use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Auth;
 
+
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/posts', [PostController::class, 'index']);
+Route::resource('/posts', PostController::class);
 Route::get('/kategori/{category:slug}', [PostController::class, 'byCategory'])->name('category.show');
 
 // Newsletter

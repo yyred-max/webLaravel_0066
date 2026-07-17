@@ -14,24 +14,12 @@
 
         <div class="collapse navbar-collapse" id="navbarNews">
             <ul class="navbar-nav ms-4">
-                <li class="nav-item">
-                    <a class="nav-link active" href="#">Politik</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Ekonomi</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Teknologi</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Olahraga</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Hiburan</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Gaya Hidup</a>
-                </li>
+                <li class="nav-item"><a class="nav-link active" href="#">Politik</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Ekonomi</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Teknologi</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Olahraga</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Hiburan</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Gaya Hidup</a></li>
             </ul>
 
             <div class="navbar-icons ms-auto">
@@ -46,7 +34,7 @@
 <!-- Hero -->
 @if($hero)
 <section class="container">
-    <div class="hero-section" style="background-image: url('{{ asset('images/' . $hero->image) }}');">
+    <div class="hero-section" style="background-image: url('{{ asset('storage/' . $hero->image) }}');">
         <div class="hero-overlay">
             <div class="hero-meta-row">
                 <span class="badge-utama">LAPORAN UTAMA</span>
@@ -65,13 +53,15 @@
 </section>
 @endif
 
-<!-- Berita Terbaru -->
+<!-- Berita Terbaru & Sidebar -->
 <section class="container berita-section">
     <div class="row">
+        <!-- Kolom Kiri: Berita Terbaru + Semua Post -->
         <div class="col-lg-8">
+            <!-- Berita Terbaru -->
             <div class="section-header">
                 <h2>Berita Terbaru</h2>
-                <a href="#" class="lihat-semua">Lihat Semua &rsaquo;</a>
+                <a href="{{ route('posts.create') }}" class="btn btn-success">+ Tambah Post</a>
             </div>
 
             <div class="row g-4">
@@ -79,9 +69,9 @@
                 <div class="col-md-6">
                     <div class="news-card">
                         <div class="news-img">
-                            <img src="{{ asset('images/' . $post->image) }}" alt="{{ $post->category->name ?? 'Berita' }}">
+                            <img src="{{ asset('storage/' . $post->image) }}" alt="{{ $post->category->name ?? 'Berita' }}">
                             @if($post->category)
-                                <a href="{{ route('category.show', $post->category->slug) }}" class="badge-category {{ $post->category->badge_class }}">{{ $post->category->name }}</a>
+                                <a href="{{ route('category.show', $post->category->slug) }}" class="badge-category {{ $post->category->badge_class ?? '' }}">{{ $post->category->name }}</a>
                             @endif
                         </div>
                         <div class="news-body">
@@ -91,21 +81,24 @@
                             <h3>{{ $post->title }}</h3>
                             <p>{{ Str::limit($post->excerpt, 110) }}</p>
 
-                           
-
-                            <div class="news-footer">
-                            @if($post->source && Str::startsWith($post->source, ['http://','https://']))
-                                <a href="{{ $post->source }}"
-                                    class="read-more"
-                                    target="_blank">
-                                        Read More <i class="bi bi-arrow-right"></i>
-                                </a>
-                            @else
-                                <span class="source-tag">
-                                    {{ $post->source }}
-                                </span>
-                            @endif
-                            
+                            <div class="news-footer d-flex justify-content-between align-items-center">
+                                <div>
+                                    @if($post->source && Str::startsWith($post->source, ['http://','https://']))
+                                        <a href="{{ $post->source }}" class="read-more" target="_blank">
+                                            Read More <i class="bi bi-arrow-right"></i>
+                                        </a>
+                                    @else
+                                        <span class="source-tag">{{ $post->source }}</span>
+                                    @endif
+                                </div>
+                                <div>
+                                    <a href="{{ route('posts.edit', $post->id) }}" class="btn btn-sm btn-warning">Edit</a>
+                                    <form action="{{ route('posts.destroy', $post->id) }}" method="POST" style="display:inline-block;" onsubmit="return confirm('Yakin hapus data ini?')">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-sm btn-danger">Hapus</button>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -114,13 +107,66 @@
                 <p class="text-muted">Belum ada berita.</p>
                 @endforelse
             </div>
-        </div>
 
-        <!-- Sidebar -->
+            <!-- === SEMUA POST (List View) === -->
+            <div class="mt-5">
+                <h2 class="section-title">Semua Post</h2>
+                <div class="list-group">
+                    @forelse($posts as $post)
+                    <div class="list-group-item d-flex align-items-start gap-3 py-3">
+                        <!-- Thumbnail -->
+                        <div style="flex-shrink:0; width:120px; height:80px; overflow:hidden; border-radius:8px;">
+                            @if($post->image)
+                                <img src="{{ asset('storage/' . $post->image) }}" alt="{{ $post->title }}" style="width:100%; height:100%; object-fit:cover;">
+                            @else
+                                <img src="{{ asset('images/default.jpg') }}" alt="Default" style="width:100%; height:100%; object-fit:cover;">
+                            @endif
+                        </div>
+
+                        <!-- Konten -->
+                        <div class="flex-grow-1">
+                            <div class="d-flex justify-content-between align-items-start">
+                                <div>
+                                    @if($post->category)
+                                        <span class="badge bg-primary">{{ $post->category->name }}</span>
+                                    @endif
+                                    <span class="text-muted small ms-2">
+                                        {{ $post->display_date->locale('id')->diffForHumans() }} &bull; {{ $post->reading_time }} menit baca
+                                    </span>
+                                    <h5 class="mb-1 mt-1">{{ $post->title }}</h5>
+                                </div>
+                                <!-- Tombol aksi -->
+                                <div class="d-flex gap-2 flex-shrink-0">
+                                    <a href="{{ route('posts.edit', $post->id) }}" class="btn btn-sm btn-warning">Edit</a>
+                                    <form action="{{ route('posts.destroy', $post->id) }}" method="POST" style="display:inline-block;" onsubmit="return confirm('Yakin hapus data ini?')">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-sm btn-danger">Hapus</button>
+                                    </form>
+                                </div>
+                            </div>
+                            <a href="{{ route('posts.show', $post->id) }}" class="text-primary small">Baca selengkapnya →</a>
+                        </div>
+                    </div>
+                    @empty
+                    <div class="list-group-item text-muted">Belum ada post.</div>
+                    @endforelse
+                </div>
+
+                <!-- Pagination -->
+                @if(method_exists($posts, 'links'))
+                    <div class="mt-4">
+                        {{ $posts->links() }}
+                    </div>
+                @endif
+            </div>
+        </div>
+        <!-- Akhir col-lg-8 -->
+
+        <!-- ===== SIDEBAR ===== -->
         <div class="col-lg-4">
             <div class="sidebar-widget">
                 <h3><i class="bi bi-graph-up-arrow"></i> Paling Populer</h3>
-
                 @foreach($popularPosts as $index => $post)
                 <div class="popular-item">
                     <span class="popular-num">{{ sprintf('%02d', $index + 1) }}</span>
@@ -159,7 +205,9 @@
                 </form>
             </div>
         </div>
+        <!-- Akhir Sidebar -->
     </div>
+    <!-- Akhir row -->
 </section>
 
 <!-- Footer -->
